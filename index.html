@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Command Executor</title>
+    <style>
+        /* Add your CSS styling here */
+        #svgPane {
+            border: 1px solid #ddd;
+            margin-top: 10px;
+            width: 100%;
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="commandInput" placeholder="Enter command">
+    <button id="executeBtn">Enter</button>
+    <div id="svgPane"></div>
+
+    <script>
+        document.getElementById('executeBtn').onclick = function() {
+            var command = document.getElementById('commandInput').value;
+            // Add AJAX call to send command to server
+           // inside <script> tag
+document.getElementById('executeBtn').onclick = function() {
+    var command = document.getElementById('commandInput').value;
+    fetch('/run-command', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `command=${encodeURIComponent(command)}`
+    })
+    .then(response => response.text())
+    .then(data => {
+        // Assuming 'data' contains the path to the SVG file
+        document.getElementById('svgPane').innerHTML = `<img src="${data}" alt="Generated SVG">`;
+    })
+    .catch(error => console.error('Error:', error));
+};
+
+        };
+    </script>
+</body>
+</html>
+
